@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Crear Rol</title>
+</head>
+<body class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="container">
+    <h1 class="text-center">Crear Rol</h1>
+    <form th:action="@{/roles/create}" method="post" th:object="${role}" class="mt-4">
+        <div class="form-group">
+            <label for="name">Nombre del rol:</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Descripción del rol:</label>
+            <input type="text" class="form-control" id="description" th:field="*{description}" required>
+        </div>
+        <div class="form-group">
+            <label>Permisos:</label>
+            <div class="row">
+                <div th:each="perm : ${permissions}" class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="permissions[]" th:value="${perm.id}" th:id="${'perm' + perm.id}">
+                        <label class="form-check-label" th:for="${'perm' + perm.id}" th:text="${perm.name}"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Crear Rol</button>
+    </form>
+    <div class="mt-3 text-center">
+        <a th:href="@{/roles/list-roles}" class="btn btn-primary">Ver lista de roles</a>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
